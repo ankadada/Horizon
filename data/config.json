@@ -1,16 +1,12 @@
 {
   "version": "1.0",
   "ai": {
-    "provider": "openai",
-    "model": "deepseek-v4-flash",
-    "base_url": "https://api.deepseek.com",
-    "api_key_env": "OPENAI_API_KEY",
+    "provider": "anthropic",
+    "model": "claude-sonnet-4-6",
+    "api_key_env": "ANTHROPIC_API_KEY",
     "temperature": 0.3,
     "max_tokens": 8192,
-    "languages": [
-      "zh",
-      "en"
-    ]
+    "languages": ["zh", "en"]
   },
   "sources": {
     "github": [
@@ -21,27 +17,39 @@
       },
       {
         "type": "repo_releases",
+        "owner": "anthropics",
+        "repo": "claude-code",
+        "enabled": true
+      },
+      {
+        "type": "repo_releases",
         "owner": "vllm-project",
         "repo": "vllm",
         "enabled": true
       },
       {
         "type": "repo_releases",
-        "owner": "sgl-project",
-        "repo": "sglang",
+        "owner": "openai",
+        "repo": "openai-python",
         "enabled": true
       },
       {
         "type": "repo_releases",
-        "owner": "triton-lang",
-        "repo": "triton",
+        "owner": "langchain-ai",
+        "repo": "langchain",
+        "enabled": true
+      },
+      {
+        "type": "repo_releases",
+        "owner": "huggingface",
+        "repo": "transformers",
         "enabled": true
       }
     ],
     "hackernews": {
       "enabled": true,
       "fetch_top_stories": 30,
-      "min_score": 150
+      "min_score": 100
     },
     "rss": [
       {
@@ -51,16 +59,52 @@
         "category": "ai-tools"
       },
       {
-        "name": "GitHub Trending - Daily",
+        "name": "GitHub Trending Daily",
         "url": "https://mshibanami.github.io/GitHubTrendingRSS/daily/all.xml",
         "enabled": true,
         "category": "github-trending"
       },
       {
-        "name": "LWN.net",
-        "url": "https://lwn.net/headlines/full_text?key=${LWN_KEY}",
+        "name": "Hugging Face Blog",
+        "url": "https://huggingface.co/blog/feed.xml",
         "enabled": true,
-        "category": "linux-kernel"
+        "category": "ai-research"
+      },
+      {
+        "name": "The Batch (Andrew Ng)",
+        "url": "https://www.deeplearning.ai/the-batch/feed/",
+        "enabled": true,
+        "category": "ai-news"
+      },
+      {
+        "name": "36氪",
+        "url": "https://36kr.com/feed",
+        "enabled": true,
+        "category": "cn-tech"
+      },
+      {
+        "name": "少数派",
+        "url": "https://sspai.com/feed",
+        "enabled": true,
+        "category": "cn-tech"
+      },
+      {
+        "name": "InfoQ 中文",
+        "url": "https://www.infoq.cn/feed",
+        "enabled": true,
+        "category": "cn-tech"
+      },
+      {
+        "name": "华尔街见闻",
+        "url": "https://wallstreetcn.com/rss",
+        "enabled": true,
+        "category": "finance"
+      },
+      {
+        "name": "FT中文网",
+        "url": "https://www.ftchinese.com/rss/feed",
+        "enabled": true,
+        "category": "finance"
       }
     ],
     "reddit": {
@@ -72,7 +116,7 @@
           "sort": "hot",
           "time_filter": "day",
           "fetch_limit": 15,
-          "min_score": 60
+          "min_score": 50
         },
         {
           "subreddit": "LocalLLaMA",
@@ -80,27 +124,46 @@
           "sort": "hot",
           "time_filter": "day",
           "fetch_limit": 15,
-          "min_score": 60
+          "min_score": 50
+        },
+        {
+          "subreddit": "artificial",
+          "enabled": true,
+          "sort": "hot",
+          "time_filter": "day",
+          "fetch_limit": 10,
+          "min_score": 30
+        },
+        {
+          "subreddit": "wallstreetbets",
+          "enabled": true,
+          "sort": "hot",
+          "time_filter": "day",
+          "fetch_limit": 10,
+          "min_score": 200
+        },
+        {
+          "subreddit": "investing",
+          "enabled": true,
+          "sort": "hot",
+          "time_filter": "day",
+          "fetch_limit": 10,
+          "min_score": 50
         }
       ],
       "users": [],
-      "fetch_comments": 10
-    },
-    "telegram": {
-      "enabled": true,
-      "channels": [
-        {
-          "channel": "zaihuapd",
-          "enabled": true,
-          "fetch_limit": 20
-        }
-      ]
+      "fetch_comments": 5
     },
     "twitter": {
       "enabled": true,
       "users": [
         "karpathy",
-        "roifex"
+        "ylecun",
+        "AndrewYNg",
+        "sama",
+        "jimfan_",
+        "alexaborisov",
+        "aaboranov"
       ],
       "fetch_limit": 10,
       "fetch_reply_text": false,
@@ -110,20 +173,18 @@
     }
   },
   "filtering": {
-    "ai_score_threshold": 8.0,
+    "ai_score_threshold": 6.0,
     "time_window_hours": 24
   },
   "webhook": {
     "enabled": true,
     "url_env": "HORIZON_WEBHOOK_URL",
     "delivery": "summary_and_items",
-    "overview_position": "last",
+    "overview_position": "first",
     "platform": "feishu",
     "layout": "collapsible",
     "fallback_layout": "markdown",
-    "languages": [
-      "zh"
-    ],
+    "languages": ["zh"],
     "request_body": {
       "msg_type": "interactive",
       "card": {
