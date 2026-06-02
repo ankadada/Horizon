@@ -162,7 +162,9 @@ class OpenAIClient(AIClient):
                 input_tokens=getattr(usage, "prompt_tokens", 0),
                 output_tokens=getattr(usage, "completion_tokens", 0),
             )
-        return response.choices[0].message.content
+        # Support reasoning models (e.g. Xiaomi Mimo) that return content in reasoning_content
+        msg = response.choices[0].message
+        return msg.content or getattr(msg, "reasoning_content", "") or ""
 
 
 class AzureOpenAIClient(AIClient):
